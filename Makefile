@@ -1,8 +1,9 @@
 CXX = g++
-LFLAGS = 
-CXXFLAGS = -std=c++11 -Wall
+LFLAGS =
+CXXFLAGS = -std=c++20 -Wall
 
-INCLUDES = -I./includes
+INCLUDES = -I./include -I./libremidi/include
+LIBRARIES = libremidi/build/liblibremidi.a
 
 SRC_DIR = src
 OBJ_DIR = obj
@@ -15,7 +16,7 @@ OBJ_FILES = $(patsubst $(SRC_DIR)/%.cpp, $(OBJ_DIR)/%.o, $(SRC_FILES))
 TARGET = $(BUILD_DIR)/$(APP_NAME)
 
 $(TARGET): $(OBJ_FILES)
-	$(CXX) $(LFLAGS) -o $@ $^
+	$(CXX) $(LFLAGS) -o $@ $^ $(LIBRARIES) 
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
 	$(CXX) $(CXXFLAGS) $(INCLUDES) -c -o $@ $<

@@ -1,15 +1,18 @@
 #include <cxxopts.hpp>
 #include <iostream>
+#include <libremidi/libremidi.hpp>
 
-int main(int argc, char *argv[]) {
+void read_inputs() {
+    libremidi::observer obs;
+    for (const libremidi::input_port& port : obs.get_input_ports()) {
+        std::cout << port.port_name << "\n";
+    }
+}
+
+int main(int argc, char* argv[]) {
     cxxopts::Options options("YourProgram", "Description of your program");
 
-    options.add_options()
-        ("v,verbose", "Enable verbose mode")
-        ("i,input", "Input file", cxxopts::value<std::string>())
-        ("o,output", "Output file", cxxopts::value<std::string>())
-        ("h,help", "Print usage")
-    ;
+    options.add_options()("v,verbose", "Enable verbose mode")("i,input", "Input file", cxxopts::value<std::string>())("o,output", "Output file", cxxopts::value<std::string>())("h,help", "Print usage");
 
     auto result = options.parse(argc, argv);
 
@@ -30,7 +33,7 @@ int main(int argc, char *argv[]) {
         exit(0);
     }
 
-    // Rest of your program logic goes here
+    read_inputs();
 
     return 0;
 }
