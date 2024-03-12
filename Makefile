@@ -3,7 +3,7 @@ LFLAGS =
 CXXFLAGS = -std=c++20 -Wall
 
 INCLUDES = -I./include -I./libremidi/include
-LIBRARIES = libremidi/build/liblibremidi.a
+LIBRARIES = libremidi/build/liblibremidi.a -lncurses
 
 SRC_DIR = src
 OBJ_DIR = obj
