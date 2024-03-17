@@ -1,5 +1,5 @@
 #pragma once
-#include <curses.h>
+#include <ncurses.h>
 
 #include <memory>
 #include <string>
@@ -15,6 +15,6 @@ class View {
    public:
     virtual ~View() = default;
     std::vector<Action> actions;
-    virtual void update() = 0;
-    virtual void draw(WINDOW* win) const = 0;
+    virtual void input(WINDOW* win) = 0;
+    virtual void draw(WINDOW* win) = 0;
 };

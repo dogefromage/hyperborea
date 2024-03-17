@@ -1,6 +1,6 @@
 CXX = g++
 LFLAGS =
-CXXFLAGS = -std=c++20 -Wall
+CXXFLAGS = -std=c++20 -Wall -g
 
 INCLUDES = -I./include -I./libremidi/include
 LIBRARIES = libremidi/build/liblibremidi.a -lncurses

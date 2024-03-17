@@ -22,3 +22,7 @@ Track& Project::create_track() {
     Track& track = gProject.tracks[track_index];
     return track;
 }
+
+int Project::track_count() {
+    return tracks.size();
+}

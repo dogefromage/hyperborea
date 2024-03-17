@@ -12,6 +12,7 @@ class Project {
    public:
     Track& create_track();
     std::vector<Track> tracks{};
+    int track_count();
 };
 
 extern Project gProject;

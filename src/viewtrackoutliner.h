@@ -3,6 +3,7 @@
 
 class TrackOutlinerView : public View {
    public:
-    void update() override;
-    void draw(WINDOW* win) const override;
+    void input(WINDOW* win) override;
+    void draw(WINDOW* win) override;
+    int activeTrack = -1;
 };

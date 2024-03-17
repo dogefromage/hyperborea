@@ -1,13 +1,12 @@
 #include "app.h"
 
-#include <cassert>
 #include <memory>
-#include <unordered_map>
 
 #include "viewtrackoutliner.h"
 #include "viewtrackproperties.h"
 
 static std::unordered_map<Views, std::shared_ptr<View>> views;
+
 static Views currentViewType;
 static std::vector<Action> globalActions;
 
@@ -17,7 +16,7 @@ static void action_close_app() {
     isRunning = false;
 }
 
-void app_update() {
+void app_init() {
     currentViewType = Views::TrackOutliner;
 
     views.insert({Views::TrackOutliner, std::make_shared<TrackOutlinerView>()});
@@ -28,7 +27,6 @@ void app_update() {
 
 View& get_view(Views viewType) {
     assert(views.contains(viewType) && "View not found.");
-
     return *views[currentViewType];
 }
 
@@ -41,11 +39,6 @@ void change_view(Views viewType) {
     currentViewType = viewType;
 }
 
-void app_init() {
-    View& view = get_view(currentViewType);
-    view.update();
-}
-
 bool dispatch_global_actions(int input) {
     for (const Action& action : globalActions) {
         if (input == action.character) {
@@ -56,6 +49,11 @@ bool dispatch_global_actions(int input) {
     return false;
 }
 
-void draw_input_line(WINDOW* win) {
-    wmove(win, 0, 0);
+void app_draw_and_get_input(WINDOW* win) {
+    View& view = get_view(currentViewType);
+    view.input(win);
+}
+
+std::unordered_map<Views, std::shared_ptr<View>>& get_views() {
+    return views;
 }
